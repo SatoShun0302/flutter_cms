@@ -1,0 +1,6 @@
+package com.gamotan.fluttercms.flutter_cms
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity: FlutterActivity() {
+}
