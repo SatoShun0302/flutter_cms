@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1052567801942",
+    "firebase_url": "https://flutter-cms-demo-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "flutter-cms-demo",
+    "storage_bucket": "flutter-cms-demo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1052567801942:android:bb2745fec383876fcf2bf7",
+        "android_client_info": {
+          "package_name": "com.gamotan.fluttercms.flutter_cms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1052567801942-plpejvi2r9pjpq8msiordub5dsmc0tgc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9uxC3vvRqAdVDu7GUQXHDxweHiTiKZXM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1052567801942-plpejvi2r9pjpq8msiordub5dsmc0tgc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1052567801942-q0j90iofpk3mn2lk2ulg4jt6rcn7aibo.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.gamotan.fluttercms.flutterCms"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

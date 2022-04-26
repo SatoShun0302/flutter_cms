@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_cms/firebase_options.dart';
 import 'single_data/view/view_article.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized(); //ここ！
-  await Firebase.initializeApp();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(ProviderScope(child: App()));
 }
 
@@ -26,7 +29,7 @@ class App extends StatelessWidget {
     );
 
   final _router = GoRouter(
-
+    initialLocation: '/',
     routes: [
       GoRoute(
         name: 'top',
@@ -95,11 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+
     );
   }
 }
