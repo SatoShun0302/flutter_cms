@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
+import 'package:firebase_core/firebase_core.dart';
 import 'single_data/view/view_article.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized(); //ここ！
+  await Firebase.initializeApp();
   runApp(ProviderScope(child: App()));
 }
 
@@ -32,6 +34,7 @@ class App extends StatelessWidget {
         builder: (context, state) => const MyHomePage(title: '',),
       ),
       GoRoute(
+        name: 'page2',
         path: '/page2',
         builder: (context, state) => const ViewArticle(),
       ),
