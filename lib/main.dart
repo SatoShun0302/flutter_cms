@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_cms/features/single_data/view/create_new_article.dart';
+import 'package:flutter_cms/utils/screen_env.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_cms/firebase_options.dart';
-import 'single_data/view/view_article.dart';
+
+import 'features/single_data/view/view_article.dart';
 
 void main() async {
+  // main関数での非同期処理を可能にする
   WidgetsFlutterBinding.ensureInitialized();
+  // 端末の向きを縦で固定する
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
+  /**
+   * Firebase
+   */
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -41,6 +52,11 @@ class App extends StatelessWidget {
         path: '/page2',
         builder: (context, state) => const ViewArticle(),
       ),
+      GoRoute(
+        name: 'page3',
+        path: '/page3',
+        builder: (context, state) => CreateNewArticle(),
+      ),
     ],
     errorPageBuilder: (context, state) => MaterialPage(
       key: state.pageKey,
@@ -73,6 +89,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    // 画面サイズを格納
+    ScreenEnv.deviceWidth = MediaQuery.of(context).size.width;
+    ScreenEnv.deviceHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -93,6 +113,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 context.go('/page2')
             },
               tooltip: '画面遷移',
+              heroTag: "hero1",
+              child: const Icon(Icons.all_inclusive),
+            ),
+            FloatingActionButton(
+              onPressed: () => {
+                context.go('/page3')
+              },
+              tooltip: '新規作成',
+              heroTag: "hero2",
               child: const Icon(Icons.all_inclusive),
             ),
           ],

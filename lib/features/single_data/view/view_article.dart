@@ -8,7 +8,7 @@ class ViewArticle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CollectionReference users = FirebaseFirestore.instance.collection('users');
+    CollectionReference users = FirebaseFirestore.instance.collection('game_title').doc("GUNDAM EVOLUTION").collection("article");
     print(users);
     // return FutureBuilder(
     //   // Initialize FlutterFire
