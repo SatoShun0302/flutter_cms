@@ -50,7 +50,6 @@ class CreateNewArticle extends StatelessWidget {
                     CreateButton(
                       text: const Text("新規作成"),
                       onPressed: () async {
-                        print("onpressed");
                         CloudFirestoreRepository rep = CloudFirestoreRepository();
                         //await rep.addArticleAboutGame(gameTitle: "GUNDAM EVOLUTION", userId: "user05");
                         CollectionReference collection = FirebaseFirestore.instance.collection('game_title').doc("GUNDAM EVOLUTION").collection("article").doc("user03").collection("article");

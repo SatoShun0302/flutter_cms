@@ -9,4 +9,8 @@ class CloudStorageRepository {
     Reference? imagesRef = storageRef.child(filePath);
     imagesRef.putFile(sourcePath);
   }
+
+  Future<String> downloadArticlePicture({required String filePath}) {
+    return FirebaseStorage.instance.ref().child(filePath).getDownloadURL();
+  }
 }

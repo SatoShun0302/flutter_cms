@@ -1,7 +1,12 @@
+import 'dart:collection';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_cms/features/single_data/common_widgets/image_view_block.dart';
+import 'package:flutter_cms/features/single_data/common_widgets/title_view_block.dart';
 import 'package:flutter_cms/features/single_data/repository/cloud_firestore_repository.dart';
+import 'package:flutter_cms/features/single_data/repository/cloud_storage_repository.dart';
 import 'package:flutter_cms/firebase_options.dart';
 
 class ViewArticle extends StatelessWidget {
@@ -9,8 +14,9 @@ class ViewArticle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CollectionReference users = FirebaseFirestore.instance.collection('game_title').doc("GUNDAM EVOLUTION").collection("article").doc("user01").collection("article");
-    print(users);
+    CloudFirestoreRepository rep = CloudFirestoreRepository();
+    CloudStorageRepository cloudStorageRepository = CloudStorageRepository();
+    CollectionReference articles = FirebaseFirestore.instance.collection('game_title').doc("gundam_evolution").collection("article").doc("user0002").collection("article");
     // return FutureBuilder(
     //   // Initialize FlutterFire
     //   future: Firebase.initializeApp(
@@ -37,36 +43,39 @@ class ViewArticle extends StatelessWidget {
         title: Text("Title"),
       ),
       body: Center(
-        child: FutureBuilder<DocumentSnapshot>(
-          future: users.doc("1651735672143").get(),
+        child: FutureBuilder<QuerySnapshot<Object?>>(
+          future: rep.getArticleList(collection: articles),
           builder:
-              (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-
+              (BuildContext context, AsyncSnapshot<QuerySnapshot<Object?>> snapshot) {
             if (snapshot.hasError) {
               return Text("Something went wrong");
             }
 
-            if (snapshot.hasData && !snapshot.data!.exists) {
+            if (!snapshot.hasData) {
               return Text("Document does not exist");
             }
 
             if (snapshot.connectionState == ConnectionState.done) {
-              Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
-              print(data['body']["1"]["text"] = "テストタイトル（更新2）");
-              print(data['body']);
-              print(data['tag']);
-              Map<String, Object?> object = {};
-              object = {
-                'author': data['author'],
-                'title': data['title'],
-                'body': data['body'],
-                'tag':data['tag']
-              };
-              CloudFirestoreRepository rep = CloudFirestoreRepository();
-              rep.updateArticle(users.doc("1651735672143"), object, null, null);
-              return Text("Title: ${data['title']} ${data['author']}");
+              List<Widget> list = [];
+              // for (QueryDocumentSnapshot<Object?> doc in snapshot.data!.docs) {
+              //   var map = doc.data() as Map<String, dynamic>;
+              // }
+              var doc = snapshot.data!.docs[3];
+              var title = doc["title"];
+              list.add(TitleViewBlock(text: title));
+              LinkedHashMap<String, dynamic> body = doc["body"];
+              for (var key in body.keys) {
+                var map = body[key];
+                if (map["type"] == "text") {
+                  list.add(Text(map["text"]));
+                } else if (map["type"] == "picture") {
+                  list.add(
+                      ImageViewBlock(rep: cloudStorageRepository, url: map["url"])
+                  );
+                }
+              }
+              return Column(children: list);
             }
-
             return Text("loading");
           },
         ),
