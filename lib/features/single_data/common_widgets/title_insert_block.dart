@@ -8,8 +8,8 @@ import 'package:flutter_cms/utils/article_util.dart';
 
 /// 記事新規作成,更新時用ウィジェット[テキストブロック].
 
-class TextInsertBlock extends StatelessWidget {
-  const TextInsertBlock({Key? key, this.hintText = "テキストを入力", this.onSavedFunction, required this.i11, this.top, this.right, this.bottom, this.left, required this.bodyMap}) : super(key: key);
+class TitleInsertBlock extends StatelessWidget {
+  const TitleInsertBlock({Key? key, this.hintText = "タイトルを入力", this.onSavedFunction, required this.i11, this.top, this.right, this.bottom, this.left, required this.bodyMap}) : super(key: key);
   final String hintText;
   final Function? onSavedFunction;
   final int i11;
@@ -25,7 +25,7 @@ class TextInsertBlock extends StatelessWidget {
       margin: EdgeInsets.only(
           top: top ?? ScreenEnv.deviceWidth * 0.05,
           right: right ?? ScreenEnv.deviceWidth * 0.02,
-          bottom: bottom ?? 0.0,
+          bottom: bottom ?? ScreenEnv.deviceWidth * 0.05,
           left: left ?? ScreenEnv.deviceWidth * 0.02),
       child: TextFormField(
         maxLines: null,
@@ -36,7 +36,7 @@ class TextInsertBlock extends StatelessWidget {
         onSaved: (value) {
           print(i11);
           print(value);
-          ArticleBlock articleBlock = ArticleBlock(type: articleBlockType.text, text: value);
+          ArticleBlock articleBlock = ArticleBlock(type: articleBlockType.title, text: value);
           bodyMap[i11] = articleBlock;
         },
         decoration: InputDecoration(

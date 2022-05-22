@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_cms/features/single_data/repository/cloud_firestore_repository.dart';
 import 'package:flutter_cms/firebase_options.dart';
 
 class ViewArticle extends StatelessWidget {
@@ -8,7 +9,7 @@ class ViewArticle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CollectionReference users = FirebaseFirestore.instance.collection('game_title').doc("GUNDAM EVOLUTION").collection("article");
+    CollectionReference users = FirebaseFirestore.instance.collection('game_title').doc("GUNDAM EVOLUTION").collection("article").doc("user01").collection("article");
     print(users);
     // return FutureBuilder(
     //   // Initialize FlutterFire
@@ -37,7 +38,7 @@ class ViewArticle extends StatelessWidget {
       ),
       body: Center(
         child: FutureBuilder<DocumentSnapshot>(
-          future: users.doc("NfvzjcJpgKPoc9McqlHa").get(),
+          future: users.doc("1651735672143").get(),
           builder:
               (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
 
@@ -51,7 +52,19 @@ class ViewArticle extends StatelessWidget {
 
             if (snapshot.connectionState == ConnectionState.done) {
               Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
-              return Text("Full Name: ${data['full_name']} ${data['last_name']}");
+              print(data['body']["1"]["text"] = "テストタイトル（更新2）");
+              print(data['body']);
+              print(data['tag']);
+              Map<String, Object?> object = {};
+              object = {
+                'author': data['author'],
+                'title': data['title'],
+                'body': data['body'],
+                'tag':data['tag']
+              };
+              CloudFirestoreRepository rep = CloudFirestoreRepository();
+              rep.updateArticle(users.doc("1651735672143"), object, null, null);
+              return Text("Title: ${data['title']} ${data['author']}");
             }
 
             return Text("loading");

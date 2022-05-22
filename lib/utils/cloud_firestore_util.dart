@@ -17,7 +17,11 @@ enum FirestoreQuery {
 
 /// Cloud Firestoreの処理で使用する定数、関数を定義したクラス
 class CloudFirestoreUtil {
-  /// 一度に取得するデータの件数
+
+  /// ゲームタイトル. スネークケースを用いる.
+  static const String gameTitle = "gundam_evolution";
+
+  /// 一度に取得するデータの件数.
   static const int limit = 10;
 
   ///

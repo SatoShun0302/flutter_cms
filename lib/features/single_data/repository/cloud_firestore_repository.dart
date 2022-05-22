@@ -5,7 +5,7 @@ import 'package:flutter_cms/utils/cloud_firestore_util.dart';
 class CloudFirestoreRepository {
   /// 祖先要素(ドキュメント),親要素(コレクション)を指定し、記事を作成する.
   ///
-  /// [document] 新規追加するdocumentの祖先.
+  /// [document] 新規追加するdocumentの祖先. userId.
   /// [collection] 新規追加するdocumentの親.
   /// [documentId] 新規追加するドキュメントに付与するID.
   /// [data] 新規追加するドキュメントの構造体.
@@ -64,7 +64,7 @@ class CloudFirestoreRepository {
   /// [successHandler] 更新成功時のコールバック処理.
   /// [errorHandler] 更新失敗時のコールバック処理.
   Future<void> updateArticle(
-      DocumentReference<Map<String, dynamic>> document,
+      DocumentReference<Object?> document,
       Map<String, Object?> data,
       Function? successHandler,
       Function? errorHandler) {
@@ -79,7 +79,7 @@ class CloudFirestoreRepository {
   /// [document] 削除するドキュメント.
   /// [successHandler] 更新成功時のコールバック処理.
   /// [errorHandler] 更新失敗時のコールバック処理.
-  Future<void> deleteArticle(DocumentReference<Map<String, dynamic>> document,
+  Future<void> deleteArticle(DocumentReference<Object?> document,
       Function? successHandler, Function? errorHandler) {
     return document
         .delete()
