@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_cms/features/single_data/common_widgets/video_view_block.dart';
 import 'package:flutter_cms/features/single_data/view/create_new_article.dart';
 import 'package:flutter_cms/utils/screen_env.dart';
 import 'package:go_router/go_router.dart';
@@ -124,6 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
               heroTag: "hero2",
               child: const Icon(Icons.all_inclusive),
             ),
+            VideoViewBlock(youtubeUrl: "https://www.youtube.com/watch?v=dJrOwK3XMe0",),
           ],
         ),
       ),
