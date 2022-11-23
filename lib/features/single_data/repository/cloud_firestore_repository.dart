@@ -42,21 +42,6 @@ class CloudFirestoreRepository {
         .catchError((error) => errorHandler);
   }
 
-  /// 複数記事を取得する.
-  Future<QuerySnapshot<Object?>> getArticleList(
-      {required CollectionReference collection,
-      List<Map<String, dynamic>> queryList = const [],
-      int limit = CloudFirestoreUtil.limit,
-      String? orderBy}) async {
-    CollectionReference _collection = collection;
-    if (queryList.isNotEmpty) {
-      for (Map<String, dynamic> queryMap in queryList) {
-        _collection = CloudFirestoreUtil.addQuery(collection: _collection, queryMap: queryMap);
-      }
-    }
-    return _collection.limit(limit).get();
-  }
-
   /// 記事を更新する.
   ///
   /// [document] 更新するドキュメント.

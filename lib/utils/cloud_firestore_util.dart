@@ -27,32 +27,34 @@ class CloudFirestoreUtil {
   ///
   static addQuery(
       {required CollectionReference collection, required Map<String, dynamic> queryMap}) {
-    switch (queryMap["queryType"]) {
-      case FirestoreQuery.isEqualTo:
-        isEqualTo(collection: collection, equalQueryMap: queryMap);
-        break;
-      case FirestoreQuery.isNotEqualTo:
-        isNotEqualTo(collection: collection, notEqualQueryMap: queryMap);
-        break;
-      case FirestoreQuery.whereIn:
-        whereIn(collection: collection, whereInQueryMap: queryMap);
-        break;
-      case FirestoreQuery.whereNotIn:
-        break;
-      case FirestoreQuery.isNull:
-        break;
-      case FirestoreQuery.isLessThan:
-        break;
-      case FirestoreQuery.isLessThanOrEqualTo:
-        break;
-      case FirestoreQuery.isGreaterThan:
-        break;
-      case FirestoreQuery.isGreaterThanOrEqualTo:
-        break;
-      case FirestoreQuery.arrayContains:
-        break;
-      case FirestoreQuery.arrayContainsAny:
-        break;
+    if (queryMap.containsKey("queryType")) {
+      switch (queryMap["queryType"]) {
+        case FirestoreQuery.isEqualTo:
+          isEqualTo(collection: collection, equalQueryMap: queryMap);
+          break;
+        case FirestoreQuery.isNotEqualTo:
+          isNotEqualTo(collection: collection, notEqualQueryMap: queryMap);
+          break;
+        case FirestoreQuery.whereIn:
+          whereIn(collection: collection, whereInQueryMap: queryMap);
+          break;
+        case FirestoreQuery.whereNotIn:
+          break;
+        case FirestoreQuery.isNull:
+          break;
+        case FirestoreQuery.isLessThan:
+          break;
+        case FirestoreQuery.isLessThanOrEqualTo:
+          break;
+        case FirestoreQuery.isGreaterThan:
+          break;
+        case FirestoreQuery.isGreaterThanOrEqualTo:
+          break;
+        case FirestoreQuery.arrayContains:
+          break;
+        case FirestoreQuery.arrayContainsAny:
+          break;
+      }
     }
   }
 
